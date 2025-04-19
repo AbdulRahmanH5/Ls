@@ -1,0 +1,307 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}تعديل الملف الشخصي{% endblock %}
+
+{% block extra_css %}
+<style>
+    .update-profile-container {
+        padding: 3rem 0;
+    }
+    
+    .update-profile-header {
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    
+    .update-profile-header h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+    
+    .update-profile-header p {
+        color: #666;
+    }
+    
+    .update-profile-form {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 2rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        font-family: "Tajawal", sans-serif;
+        font-size: 1rem;
+    }
+    
+    .form-control:focus {
+        outline: none;
+        border-color: #000;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+    }
+    
+    textarea.form-control {
+        min-height: 120px;
+        resize: vertical;
+    }
+    
+    .form-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+    }
+    
+    .avatar-section {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .avatar-preview {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto 1rem;
+        border: 3px solid #fff;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .avatar-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .avatar-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #000;
+        color: #fff;
+        font-size: 2.5rem;
+        font-weight: 700;
+    }
+    
+    .file-input-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        margin-top: 0.5rem;
+    }
+    
+    .file-input-wrapper input[type=file] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+    
+    .file-input-btn {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: #f5f5f5;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .file-input-wrapper:hover .file-input-btn {
+        background-color: #e0e0e0;
+    }
+    
+    .file-name {
+        margin-top: 0.5rem;
+        font-size: 0.85rem;
+        color: #666;
+    }
+    
+    .help-text {
+        font-size: 0.85rem;
+        color: #666;
+        margin-top: 0.25rem;
+    }
+    
+    .errorlist {
+        color: #d32f2f;
+        font-size: 0.85rem;
+        margin-top: 0.25rem;
+        padding-right: 0;
+    }
+    
+    .errorlist li {
+        list-style: none;
+    }
+    
+    .messages {
+        max-width: 600px;
+        margin: 0 auto 1.5rem;
+    }
+    
+    .message {
+        padding: 0.75rem 1rem;
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+    }
+    
+    .message.success {
+        background-color: #e8f5e9;
+        color: #388e3c;
+        border: 1px solid #c8e6c9;
+    }
+    
+    .message.error {
+        background-color: #ffebee;
+        color: #d32f2f;
+        border: 1px solid #ffcdd2;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="update-profile-container">
+    <div class="container">
+        <div class="update-profile-header">
+            <h1>تعديل الملف الشخصي</h1>
+            <p>قم بتحديث معلوماتك الشخصية وصورتك</p>
+        </div>
+        
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <div class="update-profile-form">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="avatar-section">
+                    <div class="avatar-preview">
+                        {% if user.profile.profile_picture %}
+                            <img src="{{ user.profile.profile_picture.url }}" alt="{{ user.get_full_name }}" id="avatar-preview-img">
+                        {% else %}
+                            <div class="avatar-placeholder" id="avatar-placeholder">
+                                {{ user.first_name|slice:":1"|upper }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="file-input-wrapper">
+                        <span class="file-input-btn">اختر صورة</span>
+                        <input type="file" name="profile_picture" id="profile-picture-input" accept="image/*">
+                    </div>
+                    <div class="file-name" id="file-name"></div>
+                </div>
+                
+                <!-- الاسم الأول -->
+                <div class="form-group">
+                    <label for="first_name">الاسم الأول</label>
+                    <input type="text" id="first_name" name="first_name" class="form-control" value="{{ user.first_name }}">
+                </div>
+                
+                <!-- الاسم الأخير -->
+                <div class="form-group">
+                    <label for="last_name">اسم العائلة</label>
+                    <input type="text" id="last_name" name="last_name" class="form-control" value="{{ user.last_name }}">
+                </div>
+                
+                <!-- اسم المستخدم -->
+                <div class="form-group">
+                    <label for="username">اسم المستخدم</label>
+                    <input type="text" id="username" name="username" class="form-control" value="{{ user.username }}">
+                </div>
+                
+                <!-- البريد الإلكتروني -->
+                <div class="form-group">
+                    <label for="email">البريد الإلكتروني</label>
+                    <input type="email" id="email" name="email" class="form-control" value="{{ user.email }}">
+                </div>
+                
+                <!-- نبذة شخصية -->
+                <div class="form-group">
+                    <label for="bio">نبذة شخصية</label>
+                    <textarea id="bio" name="bio" class="form-control">{{ user.Profile.bio|default:'' }}</textarea>
+                    <div class="help-text">اكتب نبذة قصيرة عن نفسك (اختياري)</div>
+                </div>
+                
+                <div class="form-actions">
+                    <a href="{% url 'profile' %}" class="btn btn-outline">إلغاء</a>
+                    <button type="submit" class="btn btn-primary">حفظ التغييرات</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // معاينة الصورة المحملة
+        const profilePictureInput = document.getElementById('profile-picture-input');
+        const avatarPreviewImg = document.getElementById('avatar-preview-img');
+        const avatarPlaceholder = document.getElementById('avatar-placeholder');
+        const fileNameDisplay = document.getElementById('file-name');
+        const avatarPreview = document.querySelector('.avatar-preview');
+        
+        if (profilePictureInput) {
+            profilePictureInput.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    const file = this.files[0];
+                    const reader = new FileReader();
+                    
+                    // عرض اسم الملف
+                    fileNameDisplay.textContent = file.name;
+                    
+                    reader.onload = function(e) {
+                        // إزالة العنصر البديل إذا كان موجودًا
+                        if (avatarPlaceholder) {
+                            avatarPlaceholder.style.display = 'none';
+                        }
+                        
+                        // التحقق مما إذا كانت الصورة موجودة بالفعل
+                        if (avatarPreviewImg) {
+                            avatarPreviewImg.src = e.target.result;
+                        } else {
+                            // إنشاء عنصر صورة جديد
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.id = 'avatar-preview-img';
+                            avatarPreview.appendChild(img);
+                        }
+                    }
+                    
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

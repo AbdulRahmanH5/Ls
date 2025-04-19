@@ -1,0 +1,113 @@
+{% extends 'core/base.html' %}
+
+{% block title %}الدورات - منصة تعلم{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>استكشف الدورات</h1>
+        <p>اكتشف مجموعة متنوعة من الدورات التعليمية في مختلف المجالات</p>
+    </div>
+</section>
+
+<section class="courses-section">
+    <div class="container">
+        <div class="courses-header">
+            <div class="courses-filter">
+                <div class="filter-group">
+                    <label for="category">التصنيف:</label>
+                    <select id="category" name="category">
+                        <option value="">جميع التصنيفات</option>
+                        {% for category in categories %}
+                        <option value="{{ category.id }}" {% if selected_category == category.id %}selected{% endif %}>{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="sort">ترتيب حسب:</label>
+                    <select id="sort" name="sort">
+                        <option value="newest">الأحدث</option>
+                        <option value="popular">الأكثر شعبية</option>
+                        <option value="rating">التقييم</option>
+                        <option value="price_low">السعر: من الأقل للأعلى</option>
+                        <option value="price_high">السعر: من الأعلى للأقل</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="courses-grid">
+            {% for course in courses %}
+            <div class="course-card">
+                <div class="course-image">
+                    <img src="{{ course.image.url }}" alt="{{ course.title }}">
+                    <div class="course-category">{{ course.category.name }}</div>
+                </div>
+                <div class="course-content">
+                    <h3 class="course-title">{{ course.title }}</h3>
+                    <p class="course-description">{{ course.description}}</p>
+                    <div class="course-instructor">
+                        <img src="{{ course.instructor.profile.profile_picture.url }}" alt="">
+                        <span>{{ course.instructor.get_full_name }}</span>
+                    </div>
+                    <div class="course-info">
+                        <div class="course-rating">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            <span>{{ course.average_rating|floatformat:1 }}</span>
+                        </div>
+                        <div class="course-lessons">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                            <span>{{ course.lessons_count }} درس</span>
+                        </div>
+                        <div class="course-duration">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            <span>{{ course.total_duration }} ساعة</span>
+                        </div>
+                    </div>
+                    <div class="course-footer">
+                        <div class="course-price">
+                            {% if course.price == 0 %}
+                            <span class="free">مجاني</span>
+                            {% else %}
+                            <span>{{ course.price }} جنيه</span>
+                            {% endif %}
+                        </div>
+                        <a href="{% url 'course_detail' course_id=course.id %}" class="btn btn-sm">عرض الدورة</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="no-courses">
+                <p>لا توجد دورات متاحة حالياً</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if courses.has_other_pages %}
+        <div class="pagination">
+            {% if courses.has_previous %}
+            <a href="?page={{ courses.previous_page_number }}" class="pagination-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                السابق
+            </a>
+            {% endif %}
+            
+            {% for num in courses.paginator.page_range %}
+                {% if courses.number == num %}
+                <span class="pagination-item active">{{ num }}</span>
+                {% elif num > courses.number|add:'-3' and num < courses.number|add:'3' %}
+                <a href="?page={{ num }}" class="pagination-item">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+            
+            {% if courses.has_next %}
+            <a href="?page={{ courses.next_page_number }}" class="pagination-item">
+                التالي
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

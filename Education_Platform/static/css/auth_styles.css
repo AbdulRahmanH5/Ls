@@ -1,0 +1,265 @@
+/* Base Styles */
+:root {
+  --primary-color: #000000;
+  --secondary-color: #ffffff;
+  --border-color: #e0e0e0;
+  --hover-color: #f5f5f5;
+  --focus-color: #eeeeee;
+  --error-color: #d32f2f;
+  --success-color: #388e3c;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Tajawal", sans-serif;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  line-height: 1.6;
+  direction: rtl;
+  height: 100vh;
+}
+
+/* Landscape Container Styles */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+  padding: 1rem;
+}
+
+.auth-layout {
+  display: flex;
+  width: 90%;
+  max-width: 1200px;
+  min-height: 500px;
+  max-height: 90vh;
+  background-color: var(--secondary-color);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Sidebar Styles */
+.auth-sidebar {
+  flex: 1;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0; /* إزالة الحشو ليملأ الإطار بالكامل */
+  overflow: hidden;
+  /* الصورة تغطي الخلفية بالكامل */
+  background-image: url('../images/logo.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.auth-sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* طبقة داكنة فوق الصورة للمساعدة في إظهار المحتوى */
+  z-index: 1;
+}
+
+.brand-container {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.logo-container {
+  margin-bottom: 2rem;
+}
+
+.logo-img {
+  width: auto;
+  height: auto;
+  max-width: 80%;
+  max-height: 150px;
+  display: block;
+  margin: 0 auto;
+}
+
+.welcome-text {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-top: 1rem;
+  text-align: center;
+  max-width: 80%;
+}
+
+/* Content Styles */
+.auth-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 3rem;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+/* Form Styles */
+.auth-form {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.form-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: right;
+}
+
+.form-fields {
+  margin-bottom: 1.5rem;
+  max-height: 50vh;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+form p {
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+form input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-family: "Tajawal", sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+form input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 0.85rem;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: 4px;
+  font-family: "Tajawal", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+  background-color: #333;
+}
+
+/* Form Footer */
+.form-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Error Messages */
+.errorlist {
+  list-style: none;
+  color: var(--error-color);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+/* Scrollbar Styling */
+.form-fields::-webkit-scrollbar {
+  width: 6px;
+}
+
+.form-fields::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.form-fields::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.form-fields::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .auth-layout {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    max-height: none;
+    width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .auth-sidebar {
+    flex: 0 0 200px; /* زيادة ارتفاع الشريط الجانبي في الإصدار المحمول */
+    padding: 0;
+  }
+
+  .logo-img {
+    max-height: 100px;
+  }
+
+  .auth-content {
+    flex: 1;
+    padding: 1.5rem;
+    max-height: none;
+  }
+
+  .form-fields {
+    max-height: none;
+    overflow-y: visible;
+  }
+}

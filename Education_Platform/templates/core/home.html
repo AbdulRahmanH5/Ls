@@ -1,0 +1,328 @@
+{% extends 'core/base.html' %}
+
+{% block title %}الرئيسية - منصة تعلم{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="hero-background">
+        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="خلفية التعليم">
+        <div class="overlay"></div>
+    </div>
+    <div class="container">
+        <div class="hero-content">
+            <h1>تعلم بلا حدود مع منصة تعلم</h1>
+            <p>منصة تعليمية متكاملة تقدم دورات احترافية في مختلف المجالات بأيدي نخبة من المدرسين المتميزين</p>
+            <div class="hero-buttons">
+                <a href="{% url 'courses' %}" class="btn btn-primary">استعرض الدورات</a>
+                <a href="{% url 'signup' %}" class="btn btn-outline">انضم إلينا</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">+500</span>
+                    <span class="stat-label">دورة تدريبية</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">+50</span>
+                    <span class="stat-label">مدرس محترف</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">+10,000</span>
+                    <span class="stat-label">طالب مسجل</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://img.freepik.com/free-vector/online-learning-isometric-concept_1284-17947.jpg?w=826&t=st=1682969382~exp=1682969982~hmac=2a2c86ab9393a9d7a3d2b5ad294e034e6e2f3d808c58f0c5b3b33e7b61f9e9a6" alt="منصة التعليم">
+        </div>
+    </div>
+</section>
+
+<section class="features-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>لماذا منصة تعلم؟</h2>
+            <p>نقدم لك تجربة تعليمية فريدة من نوعها</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1067/1067566.png" alt="دعم فني">
+                </div>
+                <h3>دعم فني على مدار الساعة</h3>
+                <p>فريق دعم فني متكامل جاهز للإجابة على استفساراتك في أي وقت</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3588/3588614.png" alt="مدرسون محترفون">
+                </div>
+                <h3>مدرسون محترفون</h3>
+                <p>نخبة من المدرسين المتخصصين في مجالاتهم مع خبرة تدريسية واسعة</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2436/2436874.png" alt="محتوى تعليمي">
+                </div>
+                <h3>محتوى تعليمي متميز</h3>
+                <p>دورات مصممة بعناية لتناسب احتياجات سوق العمل وتطوير المهارات</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2888/2888407.png" alt="تعلم في أي وقت">
+                </div>
+                <h3>تعلم في أي وقت ومكان</h3>
+                <p>منصة متوافقة مع جميع الأجهزة لتتمكن من التعلم في أي وقت ومن أي مكان</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="categories-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>استكشف فئات الدورات</h2>
+            <p>مجموعة متنوعة من المجالات التعليمية لتطوير مهاراتك</p>
+        </div>
+        <div class="categories-grid">
+            <a href="#" class="category-card">
+                <div class="category-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1005/1005141.png" alt="تطوير الويب">
+                </div>
+                <h3>تطوير الويب</h3>
+                <p>45 دورة</p>
+            </a>
+            <a href="#" class="category-card">
+                <div class="category-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2920/2920277.png" alt="الذكاء الاصطناعي">
+                </div>
+                <h3>الذكاء الاصطناعي</h3>
+                <p>32 دورة</p>
+            </a>
+            <a href="#" class="category-card">
+                <div class="category-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1968/1968641.png" alt="التصميم الجرافيكي">
+                </div>
+                <h3>التصميم الجرافيكي</h3>
+                <p>28 دورة</p>
+            </a>
+            <a href="#" class="category-card">
+                <div class="category-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2821/2821739.png" alt="تحليل البيانات">
+                </div>
+                <h3>تحليل البيانات</h3>
+                <p>36 دورة</p>
+            </a>
+            <a href="#" class="category-card">
+                <div class="category-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3938/3938629.png" alt="التسويق الرقمي">
+                </div>
+                <h3>التسويق الرقمي</h3>
+                <p>24 دورة</p>
+            </a>
+            <a href="#" class="category-card">
+                <div class="category-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2258/2258421.png" alt="اللغات">
+                </div>
+                <h3>اللغات</h3>
+                <p>50 دورة</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="featured-courses-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>دورات مميزة</h2>
+            <p>اكتشف أحدث الدورات التعليمية على منصتنا</p>
+        </div>
+        <div class="courses-grid">
+            <div class="course-card">
+                <div class="course-image">
+                    <img src="https://img.freepik.com/free-photo/programming-background-with-person-working-with-codes-computer_23-2150010125.jpg?w=996&t=st=1682970397~exp=1682970997~hmac=a3f274767e7dd2c052a4cbcc7d11c1a1c1996f1a7d2685d5b81695fc853d3bff" alt="تطوير الويب الشامل">
+                    <div class="course-category">تطوير الويب</div>
+                </div>
+                <div class="course-content">
+                    <h3 class="course-title">تطوير الويب الشامل من الصفر إلى الاحتراف</h3>
+                    <div class="course-instructor">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="أحمد محمد">
+                        <span>أحمد محمد</span>
+                    </div>
+                    <div class="course-info">
+                        <div class="course-rating">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            <span>4.8</span>
+                        </div>
+                        <div class="course-students">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            <span>1,245 طالب</span>
+                        </div>
+                    </div>
+                    <div class="course-footer">
+                        <div class="course-price">299 ريال</div>
+                        <a href="#" class="btn btn-sm">عرض الدورة</a>
+                    </div>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-image">
+                    <img src="https://img.freepik.com/free-photo/ai-nuclear-energy-background-future-innovation-disruptive-technology_53876-129783.jpg?w=996&t=st=1682970456~exp=1682971056~hmac=b4e4c9f7f3c51e36e6a20e9b8d5a0f3a0c9a75c7d3a1b1d3d8a3a3a3a3a3a3a3" alt="الذكاء الاصطناعي">
+                    <div class="course-category">الذكاء الاصطناعي</div>
+                </div>
+                <div class="course-content">
+                    <h3 class="course-title">مقدمة في الذكاء الاصطناعي وتعلم الآلة</h3>
+                    <div class="course-instructor">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="سارة أحمد">
+                        <span>سارة أحمد</span>
+                    </div>
+                    <div class="course-info">
+                        <div class="course-rating">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            <span>4.9</span>
+                        </div>
+                        <div class="course-students">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            <span>987 طالب</span>
+                        </div>
+                    </div>
+                    <div class="course-footer">
+                        <div class="course-price">349 ريال</div>
+                        <a href="#" class="btn btn-sm">عرض الدورة</a>
+                    </div>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-image">
+                    <img src="https://img.freepik.com/free-photo/medium-shot-man-working-laptop_23-2150323506.jpg?w=996&t=st=1682970510~exp=1682971110~hmac=a6e5e0c8c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6" alt="تحليل البيانات">
+                    <div class="course-category">تحليل البيانات</div>
+                </div>
+                <div class="course-content">
+                    <h3 class="course-title">تحليل البيانات باستخدام Python و Pandas</h3>
+                    <div class="course-instructor">
+                        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="محمد علي">
+                        <span>محمد علي</span>
+                    </div>
+                    <div class="course-info">
+                        <div class="course-rating">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            <span>4.7</span>
+                        </div>
+                        <div class="course-students">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            <span>756 طالب</span>
+                        </div>
+                    </div>
+                    <div class="course-footer">
+                        <div class="course-price">279 ريال</div>
+                        <a href="#" class="btn btn-sm">عرض الدورة</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="view-all">
+            <a href="{% url 'courses' %}" class="btn btn-outline">عرض جميع الدورات</a>
+        </div>
+    </div>
+</section>
+
+<section class="how-it-works-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>كيف تعمل منصتنا</h2>
+            <p>خطوات بسيطة لبدء رحلة التعلم</p>
+        </div>
+        <div class="steps-container">
+            <div class="step-item">
+                <div class="step-number">1</div>
+                <div class="step-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1705/1705243.png" alt="إنشاء حساب">
+                </div>
+                <h3>إنشاء حساب</h3>
+                <p>سجل حساباً جديداً في المنصة بخطوات بسيطة وسريعة</p>
+            </div>
+            <div class="step-item">
+                <div class="step-number">2</div>
+                <div class="step-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2641/2641409.png" alt="اختر الدورة">
+                </div>
+                <h3>اختر الدورة</h3>
+                <p>تصفح الدورات المتاحة واختر ما يناسب اهتماماتك واحتياجاتك</p>
+            </div>
+            <div class="step-item">
+                <div class="step-number">3</div>
+                <div class="step-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4762/4762311.png" alt="ابدأ التعلم">
+                </div>
+                <h3>ابدأ التعلم</h3>
+                <p>استمتع بتجربة تعليمية متكاملة مع محتوى تفاعلي وشهادات معتمدة</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="testimonials-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>آراء المتعلمين</h2>
+            <p>ماذا يقول طلابنا عن تجربتهم مع منصة التعليم</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <p>"منصة رائعة ساعدتني في تطوير مهاراتي البرمجية بشكل احترافي. المدرسون متميزون والمحتوى عالي الجودة."</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="أحمد محمد">
+                    </div>
+                    <div class="author-info">
+                        <h4>أحمد محمد</h4>
+                        <p>مطور ويب</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <p>"استفدت كثيراً من دورات التصميم الجرافيكي. المنصة سهلة الاستخدام والدعم الفني ممتاز."</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="سارة أحمد">
+                    </div>
+                    <div class="author-info">
+                        <h4>سارة أحمد</h4>
+                        <p>مصممة جرافيك</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <p>"أفضل منصة تعليمية عربية جربتها. المحتوى مفيد جداً والشهادات معتمدة ومعترف بها."</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <img src="https://randomuser.me/api/portraits/men/36.jpg" alt="محمد علي">
+                    </div>
+                    <div class="author-info">
+                        <h4>محمد علي</h4>
+                        <p>محلل بيانات</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="cta-background">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80" alt="تعلم الآن">
+        <div class="overlay"></div>
+    </div>
+    <div class="container">
+        <div class="cta-content">
+            <h2>ابدأ رحلة التعلم الآن</h2>
+            <p>انضم إلى آلاف المتعلمين واكتسب مهارات جديدة تؤهلك لسوق العمل</p>
+            <a href="{% url 'signup' %}" class="btn btn-primary">سجل الآن مجاناً</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

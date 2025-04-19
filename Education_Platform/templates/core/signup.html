@@ -1,0 +1,19 @@
+{% extends 'core/auth_base.html' %}
+
+{% block title %}إنشاء حساب - منصة التعليم{% endblock %}
+
+{% block content %}
+<div class="auth-form signup-form">
+    <h2 class="form-title">إنشاء حساب جديد</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-fields">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn-submit">إنشاء الحساب</button>
+    </form>
+    <div class="form-footer">
+        <p>لديك حساب بالفعل؟ <a href="{% url 'login' %}" class="link">تسجيل الدخول</a></p>
+    </div>
+</div>
+{% endblock %}

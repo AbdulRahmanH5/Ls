@@ -1,0 +1,660 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ course.title }} - منصة تعلم{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* أنماط صفحة تفاصيل الدورة */
+    .course-detail-container {
+        padding: 3rem 0;
+    }
+    
+    .course-header {
+        position: relative;
+        height: 400px;
+        overflow: hidden;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+    }
+    
+    .course-header-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .course-header-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 2rem;
+        color: #fff;
+    }
+    
+    .course-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+    
+    .course-meta {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .course-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+    }
+    
+    .course-main {
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+    }
+    
+    .course-tabs {
+        display: flex;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .course-tab {
+        padding: 1rem 1.5rem;
+        font-weight: 500;
+        cursor: pointer;
+        position: relative;
+    }
+    
+    .course-tab.active {
+        color: #000;
+        font-weight: 600;
+    }
+    
+    .course-tab.active:after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: #000;
+    }
+    
+    .tab-content {
+        padding: 2rem;
+        display: none;
+    }
+    
+    .tab-content.active {
+        display: block;
+    }
+    
+    .course-description {
+        line-height: 1.8;
+        margin-bottom: 2rem;
+    }
+    
+    .course-sidebar {
+        position: sticky;
+        top: 2rem;
+    }
+    
+    .course-card {
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+    
+    .course-card-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .course-card-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    
+    .course-price {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+    
+    .course-price.free {
+        color: #388e3c;
+    }
+    
+    .course-card-content {
+        padding: 1.5rem;
+    }
+    
+    .course-stats {
+        margin-bottom: 1.5rem;
+    }
+    
+    .stat-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .stat-label {
+        color: #666;
+    }
+    
+    .enroll-button {
+        width: 100%;
+        padding: 0.85rem;
+        background-color: #000;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-family: "Tajawal", sans-serif;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        text-align: center;
+        display: block;
+    }
+    
+    .enroll-button:hover {
+        background-color: #333;
+    }
+    
+    .enrolled-status {
+        background-color: #f5f5f5;
+        padding: 1rem;
+        border-radius: 8px;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+    
+    .progress-container {
+        margin-top: 1rem;
+    }
+    
+    .progress-bar {
+        height: 8px;
+        background-color: #e0e0e0;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 0.5rem;
+    }
+    
+    .progress {
+        height: 100%;
+        background-color: #000;
+        border-radius: 4px;
+    }
+    
+    .instructor-card {
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+    }
+    
+    .instructor-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .instructor-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+    
+    .instructor-content {
+        padding: 1.5rem;
+        display: flex;
+        gap: 1rem;
+    }
+    
+    .instructor-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+    
+    .instructor-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .instructor-info {
+        flex: 1;
+    }
+    
+    .instructor-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    
+    .instructor-bio {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 1rem;
+    }
+    
+    .lessons-list {
+        margin-top: 1.5rem;
+    }
+    
+    .lesson-item {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        border-bottom: 1px solid #e0e0e0;
+        transition: background-color 0.3s;
+    }
+    
+    .lesson-item:last-child {
+        border-bottom: none;
+    }
+    
+    .lesson-item:hover {
+        background-color: #f5f5f5;
+    }
+    
+    .lesson-icon {
+        width: 24px;
+        height: 24px;
+        margin-left: 1rem;
+        color: #666;
+    }
+    
+    .lesson-title {
+        flex: 1;
+        font-weight: 500;
+    }
+    
+    .lesson-duration {
+        font-size: 0.85rem;
+        color: #666;
+    }
+    
+    .lesson-locked {
+        color: #d32f2f;
+        font-size: 0.85rem;
+        margin-right: 0.5rem;
+    }
+    
+    .comments-section {
+        margin-top: 2rem;
+    }
+    
+    .comments-header {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+    }
+    
+    .comment-form {
+        margin-bottom: 2rem;
+    }
+    
+    .comment-textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        font-family: "Tajawal", sans-serif;
+        font-size: 1rem;
+        resize: vertical;
+        min-height: 100px;
+        margin-bottom: 1rem;
+    }
+    
+    .comment-textarea:focus {
+        outline: none;
+        border-color: #000;
+    }
+    
+    .comment-item {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .comment-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+    
+    .comment-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .comment-content {
+        flex: 1;
+    }
+    
+    .comment-author {
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+    }
+    
+    .comment-date {
+        font-size: 0.85rem;
+        color: #666;
+        margin-bottom: 0.5rem;
+    }
+    
+    .comment-text {
+        line-height: 1.6;
+    }
+    
+    @media (max-width: 992px) {
+        .course-content {
+            grid-template-columns: 1fr;
+        }
+        
+        .course-sidebar {
+            position: static;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .course-header {
+            height: 300px;
+        }
+        
+        .course-title {
+            font-size: 2rem;
+        }
+        
+        .course-meta {
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .course-tabs {
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="course-detail-container">
+    <div class="container">
+        <!-- رأس الدورة -->
+        <div class="course-header">
+            {% if course.image %}
+                <img src="{{ course.image.url }}" alt="{{ course.title }}" class="course-header-image">
+            {% else %}
+                <img src="{% static 'images/course-placeholder.jpg' %}" alt="{{ course.title }}" class="course-header-image">
+            {% endif %}
+            <div class="course-header-overlay">
+                <h1 class="course-title">{{ course.title }}</h1>
+                <div class="course-meta">
+                    <div class="meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        <span>{{ course.students.count }} طالب</span>
+                    </div>
+                    <div class="meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                        <span>{{ lessons|length }} درس</span>
+                    </div>
+                    <div class="meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <span>{{ course.total_duration }} ساعة</span>
+                    </div>
+                    <div class="meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <span>{{ course.average_rating|floatformat:1 }}</span>
+                    </div>
+                    {% if course.category %}
+                    <div class="meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                        <span>{{ course.category.name }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- محتوى الدورة -->
+        <div class="course-content">
+            <!-- القسم الرئيسي -->
+            <div class="course-main">
+                <!-- تبويبات الدورة -->
+                <div class="course-tabs">
+                    <div class="course-tab active" data-tab="overview">نظرة عامة</div>
+                    <div class="course-tab" data-tab="lessons">الدروس</div>
+                    <div class="course-tab" data-tab="comments">التعليقات</div>
+                </div>
+                
+                <!-- محتوى التبويبات -->
+                <div class="tab-content active" id="overview">
+                    <div class="course-description">
+                        {{ course.description|linebreaks }}
+                    </div>
+                    
+                    <!-- معلومات المدرس -->
+                    <div class="instructor-card">
+                        <div class="instructor-header">
+                            <h3 class="instructor-title">المدرس</h3>
+                        </div>
+                        <div class="instructor-content">
+                            <div class="instructor-avatar">
+                                {% if course.instructor.profile.profile_picture %}
+                                    <img src="{{ course.instructor.profile.profile_picture.url }}" alt="{{ course.instructor.get_full_name }}">
+                                {% else %}
+                                    <div class="instructor-avatar-placeholder">
+                                        {{ course.instructor.first_name|slice:":1"|upper }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="instructor-info">
+                                <h4 class="instructor-name">{{ course.instructor.get_full_name }}</h4>
+                                {% if course.instructor.Profile.bio %}
+                                    <p class="instructor-bio">{{ course.instructor.Profile.bio|truncatechars:150 }}</p>
+                                {% endif %}
+                                <div class="instructor-stats">
+                                    <span>{{ course.instructor.courses.count }} دورة</span>
+                                    <span>{{ course.instructor.courses.all|length }} طالب</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="lessons">
+                    <div class="lessons-list">
+                        {% for lesson in lessons %}
+                            <div class="lesson-item">
+                                <div class="lesson-icon">
+                                    {% if lesson.video %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+                                    {% else %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                    {% endif %}
+                                </div>
+                                <div class="lesson-title">
+                                    {% if is_enrolled %}
+                                        <a href="{% url 'lesson_detail' course_id=course.id lesson_id=lesson.id %}">{{ lesson.title }}</a>
+                                    {% else %}
+                                        <span>{{ lesson.title }}</span>
+                                        <span class="lesson-locked">(مقفل)</span>
+                                    {% endif %}
+                                </div>
+                                <div class="lesson-duration">45 دقيقة</div>
+                            </div>
+                        {% empty %}
+                            <div class="empty-state">
+                                <p>لا توجد دروس متاحة حاليًا لهذه الدورة.</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="comments">
+                    <!-- نموذج التعليق -->
+                    {% if is_enrolled %}
+                        <div class="comment-form">
+                            <form method="post" action="{% url 'add_comment' course.id %}">
+                                {% csrf_token %}
+                                <textarea name="content" class="comment-textarea" placeholder="أضف تعليقك..." required></textarea>
+                                <button type="submit" class="btn btn-primary">إرسال التعليق</button>
+                            </form>
+                        </div>
+                    {% endif %}
+                    
+                    <!-- قائمة التعليقات -->
+                    <div class="comments-list">
+                        <h3 class="comments-header">التعليقات ({{ comments|length }})</h3>
+                        
+                        {% for comment in comments %}
+                            <div class="comment-item">
+                                <div class="comment-avatar">
+                                    {% if comment.user.Profile.profile_picture %}
+                                        <img src="{{ comment.user.Profile.profile_picture.url }}" alt="{{ comment.user.get_full_name }}">
+                                    {% else %}
+                                        <div class="comment-avatar-placeholder">
+                                            {{ comment.user.first_name|slice:":1"|upper }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="comment-content">
+                                    <div class="comment-author">{{ comment.user.get_full_name }}</div>
+                                    <div class="comment-date">{{ comment.created_at|date:"d F Y" }}</div>
+                                    <div class="comment-text">{{ comment.content }}</div>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="empty-state">
+                                <p>لا توجد تعليقات حتى الآن. كن أول من يعلق!</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- الشريط الجانبي -->
+            <div class="course-sidebar">
+                <div class="course-card">
+                    <div class="course-card-header">
+                        {% if course.price == 0 %}
+                            <div class="course-price free">مجاني</div>
+                        {% else %}
+                            <div class="course-price">{{ course.price }} ريال</div>
+                        {% endif %}
+                    </div>
+                    <div class="course-card-content">
+                        <div class="course-stats">
+                            <div class="stat-row">
+                                <span class="stat-label">عدد الدروس:</span>
+                                <span>{{ lessons|length }} درس</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">المدة الإجمالية:</span>
+                                <span>{{ course.total_duration }} ساعة</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">المستوى:</span>
+                                <span>متوسط</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">اللغة:</span>
+                                <span>العربية</span>
+                            </div>
+                        </div>
+                        
+                        {% if is_enrolled %}
+                            <div class="enrolled-status">
+                                <p>أنت مسجل في هذه الدورة</p>
+                                <div class="progress-container">
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: {{ enrollment.percentage_completed }}%;"></div>
+                                    </div>
+                                    <span>{{ enrollment.percentage_completed|floatformat:0 }}% مكتمل</span>
+                                </div>
+                            </div>
+                            <a href="{% url 'lesson_detail' course_id=course.id lesson_id=lessons.0.id %}" class="enroll-button">متابعة التعلم</a>
+                        {% else %}
+                            <form method="post" action="{% url 'enroll_course' course_id=course.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="enroll-button">التسجيل في الدورة</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- ميزات الدورة -->
+                <div class="course-card">
+                    <div class="course-card-header">
+                        <h3 class="course-card-title">ماذا ستتعلم</h3>
+                    </div>
+                    <div class="course-card-content">
+                        <ul class="features-list">
+                            <li>فهم أساسيات المجال بشكل عميق</li>
+                            <li>تطبيق المفاهيم النظرية في مشاريع عملية</li>
+                            <li>اكتساب مهارات متقدمة في المجال</li>
+                            <li>التعرف على أحدث التقنيات والأدوات</li>
+                            <li>بناء مشاريع حقيقية لإثراء محفظتك</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // تبديل التبويبات
+        const tabs = document.querySelectorAll('.course-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                
+                // إزالة الفئة النشطة من جميع التبويبات
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // إضافة الفئة النشطة للتبويب المحدد
+                this.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    });
+</script>
+{% endblock %}
