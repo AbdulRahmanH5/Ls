@@ -435,7 +435,13 @@
                                         </div>
                                     </div>
                                     <div class="course-footer">
-                                        <a href="#" class="btn btn-sm">متابعة التعلم</a>
+                                        {% with lessons=enrollment.course.lessons.all %}
+                                        {% if lessons %}
+                                            <a href="{% url 'lesson_detail' course_id=enrollment.course.id lesson_id=lessons.0.id %}" class="btn btn-sm">متابعة التعلم</a>
+                                        {% else %}
+                                            <p>لا توجد دروس متاحة</p>
+                                        {% endif %}
+                                    {% endwith %}
                                     </div>
                                 </div>
                             </div>

@@ -594,6 +594,7 @@
                             </div>
                         </div>
                         
+                    {% if user.is_authenticated %}
                         {% if is_enrolled %}
                             <div class="enrolled-status">
                                 <p>أنت مسجل في هذه الدورة</p>
@@ -611,6 +612,10 @@
                                 <button type="submit" class="enroll-button">التسجيل في الدورة</button>
                             </form>
                         {% endif %}
+
+                    {% else %}
+                        <a href="{% url 'login' %}" class="enroll-button">تسجيل الدخول للتسجيل</a>
+                    {% endif %}
                     </div>
                 </div>
                 

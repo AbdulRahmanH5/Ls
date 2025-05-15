@@ -173,7 +173,7 @@
                     <ul>
                         <li><a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">الرئيسية</a></li>
                         <li><a href="{% url 'courses' %}" class="{% if 'courses' in request.path %}active{% endif %}">الدورات</a></li>
-                        <li><a href="#" class="{% if 'about' in request.path %}active{% endif %}">عن المنصة</a></li>
+                        <li><a href="{% url 'about' %}" class="{% if 'about' in request.path %}active{% endif %}">عن المنصة</a></li>
                         <li><a href="#" class="{% if 'contact' in request.path %}active{% endif %}">اتصل بنا</a></li>
                     </ul>
                 </nav>
@@ -191,7 +191,6 @@
                             </div>
                             <div class="dropdown-menu">
                                 <a href="{% url 'profile'%}">الملف الشخصي</a>
-                                <a href="#">لوحة التحكم</a>
                                 <!-- استخدام نموذج POST لتسجيل الخروج -->
                                 <form method="post" action="{% url 'logout' %}" class="logout-form">
                                     {% csrf_token %}

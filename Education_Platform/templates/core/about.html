@@ -1,0 +1,473 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}عن المنصة{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* أنماط صفحة عن المنصة */
+    .about-section {
+        padding: 4rem 0;
+    }
+
+    .about-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .about-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: 800;
+        color: #000;
+    }
+
+    .about-header .subtitle {
+        font-size: 1.2rem;
+        color: #555;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .about-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+        margin-bottom: 4rem;
+    }
+
+    .about-image {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .about-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .about-text h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+        color: #000;
+    }
+
+    .about-text p {
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #333;
+    }
+
+    .features-section {
+        background-color: #f9f9f9;
+        padding: 4rem 0;
+        margin: 2rem 0;
+    }
+
+    .section-title {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 3rem;
+        font-weight: 700;
+        color: #000;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+
+    .feature-card {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 2rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+        width: 60px;
+        height: 60px;
+        background-color: #f5f5f5;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .feature-icon svg {
+        width: 30px;
+        height: 30px;
+        color: #000;
+    }
+
+    .feature-title {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+        color: #000;
+    }
+
+    .feature-desc {
+        color: #555;
+        line-height: 1.6;
+    }
+
+    .team-section {
+        padding: 4rem 0;
+    }
+
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+    }
+
+    .team-member {
+        text-align: center;
+    }
+
+    .team-photo {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto 1.5rem;
+        border: 5px solid #fff;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .team-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .team-name {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: #000;
+    }
+
+    .team-role {
+        color: #555;
+        margin-bottom: 1rem;
+    }
+
+    .team-social {
+        display: flex;
+        justify-content: center;
+        gap: 0.75rem;
+    }
+
+    .social-link {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background-color: #f5f5f5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s ease;
+    }
+
+    .social-link:hover {
+        background-color: #000;
+    }
+
+    .social-link:hover svg {
+        color: #fff;
+    }
+
+    .social-link svg {
+        width: 18px;
+        height: 18px;
+        color: #333;
+        transition: color 0.3s ease;
+    }
+
+    .testimonials-section {
+        background-color: #f9f9f9;
+        padding: 4rem 0;
+    }
+
+    .testimonial-card {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 2rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        margin-bottom: 2rem;
+    }
+
+    .testimonial-text {
+        font-style: italic;
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #333;
+    }
+
+    .testimonial-author {
+        display: flex;
+        align-items: center;
+    }
+
+    .author-image {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-left: 1rem;
+    }
+
+    .author-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .author-info h4 {
+        font-size: 1.1rem;
+        margin-bottom: 0.25rem;
+        font-weight: 700;
+        color: #000;
+    }
+
+    .author-role {
+        color: #555;
+        font-size: 0.9rem;
+    }
+
+    .cta-section {
+        padding: 4rem 0;
+        text-align: center;
+    }
+
+    .cta-content {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .cta-title {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+        color: #000;
+    }
+
+    .cta-text {
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #333;
+    }
+
+    .cta-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    /* تعديلات للجوال */
+    @media (max-width: 768px) {
+        .about-content {
+            grid-template-columns: 1fr;
+        }
+
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .team-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .team-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- قسم الترحيب -->
+<section class="about-section">
+    <div class="container">
+        <div class="about-header">
+            <h1>عن منصة تعلم</h1>
+            <p class="subtitle">منصة تعليمية رائدة تُقدم تجربة تعلم متميزة ومحتوى تعليمي عالي الجودة للمتعلمين في جميع أنحاء الوطن العربي</p>
+        </div>
+
+        <div class="about-content">
+            <div class="about-image">
+                <img src="{% static 'images/logo.png' %}" alt="صورة عن المنصة">
+            </div>
+            <div class="about-text">
+                <h2>رؤيتنا ورسالتنا</h2>
+                <p>في منصة تعلم، نؤمن بأن التعليم حق للجميع، ونسعى لتوفير فرص تعليمية ذات جودة عالية بطرق مبتكرة وميسرة لجميع المتعلمين. تأسست المنصة عام 2023 بهدف سد الفجوة في المحتوى التعليمي العربي عالي الجودة.</p>
+                <p>نسعى من خلال منصتنا إلى تطوير مهارات المتعلمين وتعزيز قدراتهم في مختلف المجالات، وذلك من خلال توفير دورات تعليمية متنوعة تناسب مختلف المستويات والاهتمامات.</p>
+                <p>تتميز منصتنا بمحتوى تفاعلي مدروس ومصمم بعناية من قبل نخبة من المختصين والخبراء في مختلف المجالات، مع التركيز على الجانب العملي والتطبيقي للمعرفة.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- قسم المميزات -->
+<section class="features-section">
+    <div class="container">
+        <h2 class="section-title">مميزات منصة تعلم</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                </div>
+                <h3 class="feature-title">دورات تعليمية متنوعة</h3>
+                <p class="feature-desc">نقدم مجموعة واسعة من الدورات التعليمية في مختلف المجالات والتخصصات تناسب مختلف المستويات والاهتمامات.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </div>
+                <h3 class="feature-title">تعلم بمرونة</h3>
+                <p class="feature-desc">تعلم بالوتيرة التي تناسبك وفي الوقت المناسب لك، مع إمكانية الوصول إلى المحتوى التعليمي في أي وقت ومن أي مكان.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                </div>
+                <h3 class="feature-title">مجتمع تعليمي داعم</h3>
+                <p class="feature-desc">انضم إلى مجتمع من المتعلمين المتحمسين والمدربين المؤهلين للتفاعل وتبادل الخبرات والمعرفة.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- قسم فريق العمل -->
+<section class="team-section">
+    <div class="container">
+        <h2 class="section-title">فريق العمل</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="team-photo">
+                    <img src="{% static 'images/team/member1.png' %}" alt="عضو الفريق">
+                </div>
+                <h3 class="team-name">عبدالرحمن هلال شعبان</h3>
+                <p class="team-role">المؤسس والرئيس التنفيذي</p>
+                <div class="team-social">
+                    <a href="https://web.facebook.com/abedo.eldeeb" class="social-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/abdulrahman-hilal" class="social-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="team-photo">
+                    <img src="{% static 'images/team/member2.jpg' %}" alt="عضو الفريق">
+                </div>
+                <h3 class="team-name"> عماد رمضان</h3>
+                <p class="team-role">مدير المحتوى التعليمي</p>
+                <div class="team-social">
+                    <a href="#" class="social-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="team-photo">
+                    <img src="{% static 'images/team/member3.jpg' %}" alt="عضو الفريق">
+                </div>
+                <h3 class="team-name">عبدالرحمن معز</h3>
+                <p class="team-role">مدير تقني</p>
+                <div class="team-social">
+                    <a href="#" class="social-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="team-photo">
+                    <img src="{% static 'images/team/member4.jpg' %}" alt="عضو الفريق">
+                </div>
+                <h3 class="team-name">نورة خالد</h3>
+                <p class="team-role">مسؤولة التسويق</p>
+                <div class="team-social">
+                    <a href="#" class="social-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- قسم الشهادات -->
+<section class="testimonials-section">
+    <div class="container">
+        <h2 class="section-title">آراء المتعلمين</h2>
+        <div class="testimonial-card">
+            <p class="testimonial-text">"منصة تعلم غيرت مسار حياتي المهنية بشكل كامل. المحتوى التعليمي عالي الجودة والمدربين على مستوى عالي من الكفاءة. أنصح بشدة بالانضمام إلى هذه المنصة الرائعة."</p>
+            <div class="testimonial-author">
+                <div class="author-image">
+                    <img src="{% static 'images/testimonials/user1.jpg' %}" alt="صورة المستخدم">
+                </div>
+                <div class="author-info">
+                    <h4>فهد السالم</h4>
+                    <p class="author-role">مطور برمجيات</p>
+                </div>
+            </div>
+        </div>
+        <div class="testimonial-card">
+            <p class="testimonial-text">"أحد أفضل القرارات التي اتخذتها هي الاشتراك في منصة تعلم. المحتوى منظم بطريقة سلسة ومفهومة، والدعم من المدربين والمجتمع لا مثيل له. تعلمت مهارات جديدة في وقت قياسي."</p>
+            <div class="testimonial-author">
+                <div class="author-image">
+                    <img src="{% static 'images/testimonials/user2.jpg' %}" alt="صورة المستخدم">
+                </div>
+                <div class="author-info">
+                    <h4>نورة العتيبي</h4>
+                    <p class="author-role">مصممة جرافيك</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- قسم الدعوة للعمل -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2 class="cta-title">ابدأ رحلة التعلم اليوم</h2>
+            <p class="cta-text">انضم إلى آلاف المتعلمين الذين غيروا حياتهم من خلال الدورات التعليمية المتميزة على منصة تعلم. استثمر في نفسك واكتسب المهارات التي تحتاجها للنجاح.</p>
+            <div class="cta-buttons">
+                <a href="{% url 'signup' %}" class="btn btn-primary">إنشاء حساب مجاني</a>
+                <a href="{% url 'courses' %}" class="btn btn-outline">استعرض الدورات</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
