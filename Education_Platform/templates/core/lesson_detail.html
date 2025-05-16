@@ -501,12 +501,9 @@
                 <!-- محتوى الدرس -->
                 <div class="lesson-body">
                     <!-- فيديو الدرس -->
-                    {% if lesson.video %}
+                    {% if lesson.video_url %}
                         <div class="video-container">
-                            <video controls>
-                                <source src="{{ lesson.video.url }}" type="video/mp4">
-                                متصفحك لا يدعم تشغيل الفيديو.
-                            </video>
+                            <iframe src="{{ lesson.video_url }}" frameborder="0" allowfullscreen></iframe>
                         </div>
                     {% endif %}
                     

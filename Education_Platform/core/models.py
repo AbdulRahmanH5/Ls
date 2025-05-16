@@ -42,7 +42,7 @@ class Lesson(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
     document = models.FileField(upload_to='lesson_documents/', blank=True, null=True)
-    video = models.FileField(upload_to='lesson_videos/', blank=True, null=True)
+    video_url = models.URLField(max_length=500, blank=True, null=True, verbose_name='Video URL')
     image = models.ImageField(upload_to='lesson_images/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
