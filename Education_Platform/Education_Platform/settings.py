@@ -24,9 +24,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-0ds61#_3uk%@=q@37672*3dydib+y-7=9ip9z&9!hp$03^v46)'
 
 # Ensure DEBUG is set to False in production
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
+
+# secure browser settings
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# csp settings
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'",)
+CSP_IMG_SRC = ("'self'",)
+
+
 
 
 # Application definition
@@ -39,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'csp',
 ]
 
 MIDDLEWARE = [
