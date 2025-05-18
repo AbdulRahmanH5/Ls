@@ -26,7 +26,11 @@ SECRET_KEY = 'django-insecure-0ds61#_3uk%@=q@37672*3dydib+y-7=9ip9z&9!hp$03^v46)
 # Ensure DEBUG is set to False in production
 DEBUG = False
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = ['44.202.231.136', 'localhost', '127.0.0.1']
+=======
+ALLOWED_HOSTS = ['44.202.231.126', 'localhost', '127.0.0.1']
+>>>>>>> 56229b06a21d38d50c69ed70276d9c2af09d69d4
 
 # secure browser settings
 SECURE_BROWSER_XSS_FILTER = True
