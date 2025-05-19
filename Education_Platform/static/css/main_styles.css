@@ -11,6 +11,11 @@
   --error-color: #d32f2f;
   --warning-color: #f57c00;
   --info-color: #0288d1;
+  --background: #fff;
+  --foreground: #000;
+  --card-bg: #f9f9f9;
+  --primary: #0b0c0b;
+  --secondary: #333;
 }
 
 * {
@@ -25,6 +30,8 @@ body {
   color: var(--text-color);
   line-height: 1.6;
   direction: rtl;
+  background: var(--background);
+  color: var(--foreground);
 }
 
 .container {
@@ -1024,6 +1031,12 @@ img {
 }
 
 /* Responsive Styles */
+@media (max-width: 1200px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
 @media (max-width: 992px) {
   .hero-section .container {
     flex-direction: column;
@@ -1051,6 +1064,16 @@ img {
     gap: 1rem;
     align-items: flex-start;
   }
+
+  .lesson-content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .lesson-sidebar {
+    position: static;
+    margin-top: 2rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1074,6 +1097,19 @@ img {
   .filter-group select {
     width: 100%;
   }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  .hero-content, .features-grid, .categories-grid, .courses-grid, .team-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .lesson-main, .course-info-card, .lessons-card {
+    border-radius: 0;
+    box-shadow: none;
+  }
 }
 
 @media (max-width: 576px) {
@@ -1088,4 +1124,19 @@ img {
   .footer-content {
     grid-template-columns: 1fr;
   }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+
+  .lesson-title, .section-title, .cta-title {
+    font-size: 1.2rem;
+  }
+}
+
+.card, .lesson-main, .course-info-card, .lessons-card, .feature-card, .testimonial-card {
+  background: var(--card-bg);
+  color: var(--foreground);
 }

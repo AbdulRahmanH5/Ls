@@ -26,23 +26,30 @@ SECRET_KEY = 'django-insecure-0ds61#_3uk%@=q@37672*3dydib+y-7=9ip9z&9!hp$03^v46)
 # Ensure DEBUG is set to False in production
 DEBUG = False
 
-<<<<<<< HEAD
+
+
 ALLOWED_HOSTS = ['44.202.231.136', 'localhost', '127.0.0.1']
-=======
-ALLOWED_HOSTS = ['44.202.231.126', 'localhost', '127.0.0.1']
->>>>>>> 56229b06a21d38d50c69ed70276d9c2af09d69d4
+
+
 
 # secure browser settings
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
-# csp settings
-CSP_DEFAULT_SRC = ("'self'",)
-CSP_SCRIPT_SRC = ("'self'",)
-CSP_STYLE_SRC = ("'self'",)
-CSP_IMG_SRC = ("'self'",)
-
+CONTENT_SECURITY_POLICY = {
+    'DIRECTIVES': {
+        'default-src': ("'self'",),
+        'img-src': ("'self'",), # Add other domains if you load images from elsewhere
+        'script-src': ("'self'",), # Add 'unsafe-inline', 'unsafe-eval', or other domains if needed
+        'style-src': ("'self'",),  # Add 'unsafe-inline' or other domains if needed
+        # Add other directives as needed, e.g.:
+        # 'font-src': ("'self'", 'https://fonts.gstatic.com'),
+        # 'connect-src': ("'self'",),
+    }
+    # You can also add 'REPORT_ONLY': True/False if needed
+    # And 'REPORT_URI': 'your_report_uri'
+}
 
 
 

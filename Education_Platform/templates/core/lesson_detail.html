@@ -533,25 +533,23 @@
                         </div>
                     {% endif %}
                     
-                    <!-- الروابط الإضافية -->
-                    {% if additional_urls %}
+           <!-- الروابط الإضافية -->
+                    {% if additional_urls.lesson %}
                         <div class="links-section">
                             <h2 class="links-title">روابط إضافية</h2>
                             <div class="links-list">
-                                {% for url_item in additional_urls %}
+                                {% for url_item in additional_urls.lesson %}
                                     <div class="link-item">
                                         <div class="link-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
                                         </div>
                                         <div class="link-content">
-                                            <div class="link-title">{{ url_item.title }}</div>
-                                            <div class="link-url">{{ url_item.url }}</div>
+                                            <a href="{{ url_item.url }}" class="link-title">{{ url_item.title }}</a>
                                         </div>
-                                        <a href="{{ url_item.url }}" class="link-button" target="_blank">فتح الرابط</a>
                                     </div>
                                 {% endfor %}
                             </div>
-                        </div>
+                        </div>         
                     {% endif %}
                     
                     <!-- زر إكمال الدرس -->

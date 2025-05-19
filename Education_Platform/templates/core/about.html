@@ -464,8 +464,12 @@
             <h2 class="cta-title">ابدأ رحلة التعلم اليوم</h2>
             <p class="cta-text">انضم إلى آلاف المتعلمين الذين غيروا حياتهم من خلال الدورات التعليمية المتميزة على منصة تعلم. استثمر في نفسك واكتسب المهارات التي تحتاجها للنجاح.</p>
             <div class="cta-buttons">
+                {% if user.is_authenticated %}
+                <a href="{% url 'courses' %}" class="btn btn-outline">استعرض الدورات</a>
+                {% else %}
                 <a href="{% url 'signup' %}" class="btn btn-primary">إنشاء حساب مجاني</a>
                 <a href="{% url 'courses' %}" class="btn btn-outline">استعرض الدورات</a>
+                {% endif %}
             </div>
         </div>
     </div>

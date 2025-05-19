@@ -47,6 +47,7 @@ class Lesson(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+
     def __str__(self):
         return f"{self.title} - {self.course.title}"
     
@@ -70,7 +71,7 @@ class Profile(models.Model):
     date_of_birth = models.DateField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.full_name}'s Profile"
+        return f"{self.user}'s Profile"
     
 
 # comment model
@@ -87,6 +88,7 @@ class Comment(models.Model):
 # Additional resourses URL
 class AdditionalResoursesUrl(models.Model):
     cuorse = models.ForeignKey(Course,on_delete=models.CASCADE,related_name='urls')
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='urls', blank=True, null=True)
     title = models.CharField(max_length=100)
     url = models.URLField()
 

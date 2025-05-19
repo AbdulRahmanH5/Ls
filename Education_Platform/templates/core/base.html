@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}منصة تعلم{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/main_styles.css' %}?v={% now 'U' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -191,7 +192,6 @@
                             </div>
                             <div class="dropdown-menu">
                                 <a href="{% url 'profile'%}">الملف الشخصي</a>
-                                <!-- استخدام نموذج POST لتسجيل الخروج -->
                                 <form method="post" action="{% url 'logout' %}" class="logout-form">
                                     {% csrf_token %}
                                     <button type="submit" class="logout-button">تسجيل الخروج</button>

@@ -163,13 +163,18 @@ def lesson_detail(request, course_id, lesson_id):
     
     # الحصول على الروابط الإضافية للدورة
     additional_urls = AdditionalResoursesUrl.objects.filter(cuorse=course)
+
+    # جلب روابط الموارد الإضافية الخاصة بالدرس الحالي فقط
+    lesson_urls = AdditionalResoursesUrl.objects.filter(lesson=lesson)
     
     context = {
         'course': course,
         'lesson': lesson,
         'lessons': lessons,
         'enrollment': enrollment,
-        'additional_urls': additional_urls,
+        'additional_urls': {
+        'lesson': lesson_urls,
+        },
     }
     
     return render(request, 'core/lesson_detail.html', context)
