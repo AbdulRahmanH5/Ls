@@ -370,11 +370,11 @@
         <nav class="mobile-nav-menu" id="mobile-nav-menu">
             <button class="close-mobile-menu" id="close-mobile-menu" aria-label="إغلاق القائمة">&times;</button>
             <ul>
+                {% if user.is_authenticated %}
                 <li><a href="{% url 'home' %}" {% if request.path == '/' %}class="active"{% endif %}>الرئيسية</a></li>
                 <li><a href="{% url 'courses' %}" {% if 'courses' in request.path %}class="active"{% endif %}>الدورات</a></li>
                 <li><a href="{% url 'about' %}" {% if 'about' in request.path %}class="active"{% endif %}>عن المنصة</a></li>
                 <li><a href="{% url 'contact' %}" {% if 'contact' in request.path %}class="active"{% endif %}>اتصل بنا</a></li>
-                {% if user.is_authenticated %}
                 <li><a href="{% url 'profile' %}" {% if 'profile' in request.path %}class="active"{% endif %}>الملف الشخصي</a></li>
                 {% endif %}
             </ul>
