@@ -71,7 +71,7 @@
         }
         
         .user-actions {
-            order: 1; /* تغيير الترتيب ليكون أقصى اليمين */
+            order: 1.5; /* تغيير الترتيب ليكون أقصى اليمين */
             display: flex;
             align-items: center;
             gap: 1rem;
@@ -192,9 +192,9 @@
             position: fixed;
             top: 0;
             right: 0;
-            width: 80vw;
+            width: 100vw;
             max-width: 320px;
-            height: 100vh;
+            height: 80vh;
             background: #fff;
             box-shadow: -2px 0 16px rgba(0,0,0,0.08);
             z-index: 2000;
@@ -271,6 +271,22 @@
                 min-width: 70px;
             }
         }
+        
+            .user-avatar {
+                margin-left: 8px; 
+            }
+
+
+            @media (max-width: 600px) {
+                .user-avatar {
+                    margin-left: 0;
+                    margin-right: auto;
+                    display: block;
+
+                }
+            }
+
+
     </style>
     {% block extra_css %}{% endblock %}
 </head>
