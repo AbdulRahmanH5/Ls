@@ -66,6 +66,8 @@
             flex-grow: 1;
             display: flex;
             justify-content: center;
+            align-items: center;
+            position: relative;
         }
         
         .user-actions {
@@ -166,12 +168,107 @@
             border-radius: 6px;
             border: 1px solid #e0e0e0;
         }
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 4px;
+            position: relative;
+            z-index: 120;
+        }
+        .mobile-menu-toggle span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background-color: #000;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        /* القائمة الجانبية المنبثقة للجوال */
+        .mobile-nav-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 80vw;
+            max-width: 320px;
+            height: 100vh;
+            background: #fff;
+            box-shadow: -2px 0 16px rgba(0,0,0,0.08);
+            z-index: 2000;
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            transition: transform 0.3s;
+            transform: translateX(100%);
+        }
+        .mobile-nav-menu.open {
+            display: block;
+            transform: translateX(0);
+        }
+        .mobile-nav-menu ul {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 0;
+            padding: 0;
+        }
+        .mobile-nav-menu a {
+            font-size: 1.1rem;
+            color: #000;
+            font-weight: 500;
+        }
+        .mobile-nav-menu .close-mobile-menu {
+            position: absolute;
+            top: 1.2rem;
+            left: 1.2rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #000;
+            cursor: pointer;
+        }
         @media (max-width: 768px) {
             .main-nav ul {
                 display: none;
             }
-            .main-nav .main-nav-dropdown {
-                display: block;
+            .mobile-menu-toggle {
+                display: flex;
+                position: absolute;
+                top: 1.2rem;
+                right: 1rem;
+            }
+            .logo-circle {
+                width: 40px;
+                height: 40px;
+            }
+            .logo-img {
+                width: 40px;
+                height: 40px;
+            }
+            .user-actions .btn,
+            .user-actions .btn-primary,
+            .user-actions .btn-outline {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.9rem;
+                min-width: 90px;
+            }
+        }
+        @media (max-width: 480px) {
+            .logo-circle {
+                width: 32px;
+                height: 32px;
+            }
+            .logo-img {
+                width: 32px;
+                height: 32px;
+            }
+            .user-actions .btn,
+            .user-actions .btn-primary,
+            .user-actions .btn-outline {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.7rem;
+                min-width: 70px;
             }
         }
     </style>
@@ -236,13 +333,26 @@
                     {% endif %}
                 </div>
                 
-                <button class="mobile-menu-toggle">
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="فتح القائمة">
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
             </div>
         </div>
+        <!-- القائمة الجانبية المنبثقة للجوال -->
+        <nav class="mobile-nav-menu" id="mobile-nav-menu">
+            <button class="close-mobile-menu" id="close-mobile-menu" aria-label="إغلاق القائمة">&times;</button>
+            <ul>
+                <li><a href="{% url 'home' %}" {% if request.path == '/' %}class="active"{% endif %}>الرئيسية</a></li>
+                <li><a href="{% url 'courses' %}" {% if 'courses' in request.path %}class="active"{% endif %}>الدورات</a></li>
+                <li><a href="{% url 'about' %}" {% if 'about' in request.path %}class="active"{% endif %}>عن المنصة</a></li>
+                <li><a href="{% url 'contact' %}" {% if 'contact' in request.path %}class="active"{% endif %}>اتصل بنا</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'profile' %}" {% if 'profile' in request.path %}class="active"{% endif %}>الملف الشخصي</a></li>
+                {% endif %}
+            </ul>
+        </nav>
     </header>
 
     <main class="main-content">
@@ -317,6 +427,36 @@
                 }
             });
         }
+
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileNavMenu = document.getElementById('mobile-nav-menu');
+        const closeMobileMenu = document.getElementById('close-mobile-menu');
+
+        function openMobileMenu() {
+            mobileNavMenu.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMenu() {
+            mobileNavMenu.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        if (mobileMenuToggle && mobileNavMenu) {
+            mobileMenuToggle.addEventListener('click', openMobileMenu);
+        }
+        if (closeMobileMenu) {
+            closeMobileMenu.addEventListener('click', closeMenu);
+        }
+        // إغلاق القائمة عند الضغط خارجها
+        document.addEventListener('click', function(e) {
+            if (mobileNavMenu.classList.contains('open') && !mobileNavMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                closeMenu();
+            }
+        });
+        // إغلاق القائمة عند الضغط على رابط داخلها
+        mobileNavMenu.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', closeMenu);
+        });
     });
 </script>
 {% endblock %}
