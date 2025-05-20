@@ -14,23 +14,26 @@
     <div class="container">
         <div class="courses-header">
             <div class="courses-filter">
-                <div class="filter-group">
-                    <label for="category">التصنيف:</label>
-                    <select id="category" name="category">
-                        <option value="">جميع التصنيفات</option>
-                        {% for category in categories %}
-                        <option value="{{ category.id }}" {% if selected_category == category.id %}selected{% endif %}>{{ category.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+                <form method="get" class="filter-form">
+                    <div class="filter-group">
+                        <label for="category">التصنيف:</label>
+                        <select id="category" name="category" onchange="this.form.submit()">
+                            <option value="">جميع التصنيفات</option>
+                            {% for category in categories %}
+                                <option value="{{ category.id }}" {% if selected_category|stringformat:"s" == category.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ category.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </form>
                 <div class="filter-group">
                     <label for="sort">ترتيب حسب:</label>
-                    <select id="sort" name="sort">
-                        <option value="newest">الأحدث</option>
-                        <option value="popular">الأكثر شعبية</option>
-                        <option value="rating">التقييم</option>
-                        <option value="price_low">السعر: من الأقل للأعلى</option>
-                        <option value="price_high">السعر: من الأعلى للأقل</option>
+                        <select id="sort" name="sort" onchange="this.form.submit()">
+                            <option value="newest" {% if sort == "newest" %}selected{% endif %}>الأحدث</option>
+                            <option value="rating" {% if sort == "rating" %}selected{% endif %}>التقييم</option>
+                            <option value="price_low" {% if sort == "price_low" %}selected{% endif %}>السعر: من الأقل للأعلى</option>
+                            <option value="price_high" {% if sort == "price_high" %}selected{% endif %}>السعر: من الأعلى للأقل</option>
                     </select>
                 </div>
             </div>

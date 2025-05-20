@@ -1,0 +1,67 @@
+{% extends 'core/base.html' %}
+{% block title %}سياسة الخصوصية - منصة تعلم{% endblock %}
+
+{% block extra_css %}
+<style>
+.privacy-section {
+    padding: 4rem 0;
+}
+.privacy-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 2.5rem 2rem;
+}
+.privacy-container h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+.privacy-container h2 {
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+.privacy-container p, .privacy-container ul {
+    margin-bottom: 1.2rem;
+    color: #333;
+    line-height: 1.8;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="privacy-section">
+    <div class="container">
+        <div class="privacy-container">
+            <h1>سياسة الخصوصية</h1>
+            <p>نحن في منصة تعلم نولي أهمية كبيرة لخصوصية مستخدمينا. توضح هذه السياسة كيفية جمع واستخدام وحماية معلوماتك الشخصية عند استخدامك للمنصة.</p>
+            <h2>المعلومات التي نجمعها</h2>
+            <ul>
+                <li>معلومات الحساب: مثل الاسم، البريد الإلكتروني، وبيانات التسجيل الأخرى.</li>
+                <li>معلومات الاستخدام: مثل الصفحات التي تزورها والدورات التي تشترك بها.</li>
+                <li>معلومات تقنية: مثل عنوان IP ونوع المتصفح والجهاز.</li>
+            </ul>
+            <h2>كيفية استخدام المعلومات</h2>
+            <ul>
+                <li>تقديم وتحسين خدمات المنصة.</li>
+                <li>التواصل معك بشأن حسابك أو خدماتنا.</li>
+                <li>تحليل استخدام المنصة لتحسين التجربة.</li>
+            </ul>
+            <h2>حماية المعلومات</h2>
+            <p>نستخدم إجراءات أمنية مناسبة لحماية بياناتك من الوصول أو الاستخدام غير المصرح به.</p>
+            <h2>مشاركة المعلومات</h2>
+            <p>لا نشارك معلوماتك الشخصية مع أي طرف ثالث إلا في الحالات التي يفرضها القانون أو لتحسين الخدمة بموافقتك.</p>
+            <h2>حقوقك</h2>
+            <p>يحق لك الوصول إلى بياناتك الشخصية أو تعديلها أو حذفها في أي وقت من خلال إعدادات الحساب أو التواصل معنا.</p>
+            <h2>التغييرات على السياسة</h2>
+            <p>قد نقوم بتحديث سياسة الخصوصية من وقت لآخر. سيتم إشعارك بأي تغييرات هامة عبر البريد الإلكتروني أو من خلال المنصة.</p>
+            <p>للاستفسارات حول سياسة الخصوصية، يرجى التواصل معنا عبر <a href="{% url 'contact' %}">صفحة اتصل بنا</a>.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

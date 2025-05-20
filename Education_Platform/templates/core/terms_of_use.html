@@ -1,0 +1,65 @@
+{% extends 'core/base.html' %}
+{% block title %}شروط الاستخدام - منصة تعلم{% endblock %}
+
+{% block extra_css %}
+<style>
+.terms-section {
+    padding: 4rem 0;
+}
+.terms-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 2.5rem 2rem;
+}
+.terms-container h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+.terms-container h2 {
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+.terms-container p, .terms-container ul {
+    margin-bottom: 1.2rem;
+    color: #333;
+    line-height: 1.8;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="terms-section">
+    <div class="container">
+        <div class="terms-container">
+            <h1>شروط الاستخدام</h1>
+            <p>يرجى قراءة شروط الاستخدام هذه بعناية قبل استخدام منصة تعلم. باستخدامك للمنصة، فإنك توافق على هذه الشروط.</p>
+            <h2>حساب المستخدم</h2>
+            <ul>
+                <li>يجب تقديم معلومات دقيقة وكاملة عند التسجيل.</li>
+                <li>أنت مسؤول عن الحفاظ على سرية بيانات الدخول الخاصة بك.</li>
+            </ul>
+            <h2>استخدام المنصة</h2>
+            <ul>
+                <li>يُحظر استخدام المنصة لأي أغراض غير قانونية أو ضارة.</li>
+                <li>يجب احترام حقوق الملكية الفكرية لجميع المواد التعليمية.</li>
+                <li>يُمنع نشر أو مشاركة أي محتوى مسيء أو غير لائق.</li>
+            </ul>
+            <h2>حقوق الملكية الفكرية</h2>
+            <p>جميع المحتويات والدورات والمواد التعليمية على المنصة محمية بحقوق النشر ولا يجوز إعادة استخدامها دون إذن.</p>
+            <h2>تعديلات الشروط</h2>
+            <p>يحق للمنصة تعديل شروط الاستخدام في أي وقت. سيتم إشعار المستخدمين بأي تغييرات هامة.</p>
+            <h2>إنهاء الحساب</h2>
+            <p>يحق للمنصة تعليق أو إنهاء حساب أي مستخدم يخالف الشروط دون إشعار مسبق.</p>
+            <h2>التواصل</h2>
+            <p>للاستفسارات حول شروط الاستخدام، يرجى التواصل معنا عبر <a href="{% url 'contact' %}">صفحة اتصل بنا</a>.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -4,6 +4,7 @@ from django.conf.urls.static import static
 from . import views
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import views as auth_views
+from core.views import contact_view, privacy_policy, terms_of_use
 
 # url patterns for the application
 urlpatterns = [
@@ -12,6 +13,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='home'), name='logout'),
     path('', views.home_view, name='home'),
     path('about/', views.about, name='about'),
+    path('contact/', contact_view, name='contact'),
     path('courses/', views.courses_view, name='courses'),
     path('courses/<int:course_id>/', views.course_detail, name='course_detail'),
     path('courses/<int:course_id>/lessons/<int:lesson_id>/', views.lesson_detail, name='lesson_detail'),
@@ -29,5 +31,7 @@ urlpatterns = [
     path('courses/<int:course_id>/lessons/<int:lesson_id>/complete/', 
          views.mark_lesson_completed, 
          name='mark_lesson_completed'),
+    path('privacy/', privacy_policy, name='privacy_policy'),
+    path('terms/', terms_of_use, name='terms_of_use'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

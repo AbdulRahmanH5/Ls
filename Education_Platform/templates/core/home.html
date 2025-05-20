@@ -139,88 +139,51 @@
             <h2>دورات مميزة</h2>
             <p>اكتشف أحدث الدورات التعليمية على منصتنا</p>
         </div>
-        <div class="courses-grid">
+       <div class="courses-grid">
+            {% for course in courses %}
             <div class="course-card">
                 <div class="course-image">
-                    <img src="https://img.freepik.com/free-photo/programming-background-with-person-working-with-codes-computer_23-2150010125.jpg?w=996&t=st=1682970397~exp=1682970997~hmac=a3f274767e7dd2c052a4cbcc7d11c1a1c1996f1a7d2685d5b81695fc853d3bff" alt="تطوير الويب الشامل">
-                    <div class="course-category">تطوير الويب</div>
+                    <img src="{{ course.image.url }}" alt="{{ course.title }}">
+                    <div class="course-category">{{ course.category.name }}</div>
                 </div>
                 <div class="course-content">
-                    <h3 class="course-title">تطوير الويب الشامل من الصفر إلى الاحتراف</h3>
+                    <h3 class="course-title">{{ course.title }}</h3>
+                    <p class="course-description">{{ course.description}}</p>
                     <div class="course-instructor">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="أحمد محمد">
-                        <span>أحمد محمد</span>
+                        <img src="{{ course.instructor.profile.profile_picture.url }}" alt="">
+                        <span>{{ course.instructor.get_full_name }}</span>
                     </div>
                     <div class="course-info">
                         <div class="course-rating">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                            <span>4.8</span>
+                            <span>{{ course.average_rating|floatformat:1 }}</span>
                         </div>
-                        <div class="course-students">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                            <span>1,245 طالب</span>
+                        <div class="course-lessons">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                            <span>{{ course.lessons_count }} درس</span>
                         </div>
-                    </div>
-                    <div class="course-footer">
-                        <div class="course-price">299 ريال</div>
-                        <a href="#" class="btn btn-sm">عرض الدورة</a>
-                    </div>
-                </div>
-            </div>
-            <div class="course-card">
-                <div class="course-image">
-                    <img src="https://img.freepik.com/free-photo/ai-nuclear-energy-background-future-innovation-disruptive-technology_53876-129783.jpg?w=996&t=st=1682970456~exp=1682971056~hmac=b4e4c9f7f3c51e36e6a20e9b8d5a0f3a0c9a75c7d3a1b1d3d8a3a3a3a3a3a3a3" alt="الذكاء الاصطناعي">
-                    <div class="course-category">الذكاء الاصطناعي</div>
-                </div>
-                <div class="course-content">
-                    <h3 class="course-title">مقدمة في الذكاء الاصطناعي وتعلم الآلة</h3>
-                    <div class="course-instructor">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="سارة أحمد">
-                        <span>سارة أحمد</span>
-                    </div>
-                    <div class="course-info">
-                        <div class="course-rating">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                            <span>4.9</span>
-                        </div>
-                        <div class="course-students">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                            <span>987 طالب</span>
+                        <div class="course-duration">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            <span>{{ course.total_duration }} ساعة</span>
                         </div>
                     </div>
                     <div class="course-footer">
-                        <div class="course-price">349 ريال</div>
-                        <a href="#" class="btn btn-sm">عرض الدورة</a>
+                        <div class="course-price">
+                            {% if course.price == 0 %}
+                            <span class="free">مجاني</span>
+                            {% else %}
+                            <span>{{ course.price }} جنيه</span>
+                            {% endif %}
+                        </div>
+                        <a href="{% url 'course_detail' course_id=course.id %}" class="btn btn-sm">عرض الدورة</a>
                     </div>
                 </div>
             </div>
-            <div class="course-card">
-                <div class="course-image">
-                    <img src="https://img.freepik.com/free-photo/medium-shot-man-working-laptop_23-2150323506.jpg?w=996&t=st=1682970510~exp=1682971110~hmac=a6e5e0c8c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6" alt="تحليل البيانات">
-                    <div class="course-category">تحليل البيانات</div>
-                </div>
-                <div class="course-content">
-                    <h3 class="course-title">تحليل البيانات باستخدام Python و Pandas</h3>
-                    <div class="course-instructor">
-                        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="محمد علي">
-                        <span>محمد علي</span>
-                    </div>
-                    <div class="course-info">
-                        <div class="course-rating">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                            <span>4.7</span>
-                        </div>
-                        <div class="course-students">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                            <span>756 طالب</span>
-                        </div>
-                    </div>
-                    <div class="course-footer">
-                        <div class="course-price">279 ريال</div>
-                        <a href="#" class="btn btn-sm">عرض الدورة</a>
-                    </div>
-                </div>
+            {% empty %}
+            <div class="no-courses">
+                <p>لا توجد دورات متاحة حالياً</p>
             </div>
+            {% endfor %}
         </div>
         <div class="view-all">
             <a href="{% url 'courses' %}" class="btn btn-outline">عرض جميع الدورات</a>

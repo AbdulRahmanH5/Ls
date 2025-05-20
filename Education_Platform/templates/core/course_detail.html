@@ -605,14 +605,17 @@
                                     <span>{{ enrollment.percentage_completed|floatformat:0 }}% مكتمل</span>
                                 </div>
                             </div>
-                            <a href="{% url 'lesson_detail' course_id=course.id lesson_id=lessons.0.id %}" class="enroll-button">متابعة التعلم</a>
+                            {% if lessons %} {# <--- إضافة هذا الشرط #}
+                                <a href="{% url 'lesson_detail' course_id=course.id lesson_id=lessons.0.id %}" class="enroll-button">متابعة التعلم</a>
+                            {% else %}
+                                <p>لا توجد دروس متاحة حاليًا لبدء التعلم.</p> {# <--- رسالة بديلة #}
+                            {% endif %}
                         {% else %}
                             <form method="post" action="{% url 'enroll_course' course_id=course.id %}">
                                 {% csrf_token %}
                                 <button type="submit" class="enroll-button">التسجيل في الدورة</button>
                             </form>
                         {% endif %}
-
                     {% else %}
                         <a href="{% url 'login' %}" class="enroll-button">تسجيل الدخول للتسجيل</a>
                     {% endif %}

@@ -38,9 +38,33 @@ def profile_view(request):
     if request.user.is_authenticated:
         user = request.user
         enrollments = Enrollment.objects.filter(user=user)
-        return render(request, 'core/profile.html', {'user': user, 'enrollments': enrollments})
+
+        # حساب الدورات المكتملة
+        completed_courses = 0
+        total_hours = 0
+        for enrollment in enrollments:
+            lessons_count = enrollment.course.lessons.count()
+            completed_lessons = CompletedLesson.objects.filter(
+                user=user,
+                lesson__course=enrollment.course
+            ).count()
+            if lessons_count > 0 and completed_lessons == lessons_count:
+                completed_courses += 1
+            # جمع ساعات التعلم (تحويل مدة الدورة إلى ساعات float)
+            if enrollment.percentage_completed > 0 and enrollment.course.total_duration:
+                total_seconds = enrollment.course.total_duration.total_seconds()
+                hours = total_seconds / 3600
+                total_hours += hours * (enrollment.percentage_completed / 100)
+
+        context = {
+            'user': user,
+            'enrollments': enrollments,
+            'completed_courses': completed_courses,
+            'total_hours': int(total_hours),
+        }
+        return render(request, 'core/profile.html', context)
     else:
-        return redirect('login')  # تغيير إلى صفحة تسجيل الدخول إذا لم يكن المستخدم مسجلاً الدخول
+        return redirect('login')
 
 # home page
 def home_view(request):
@@ -49,8 +73,41 @@ def home_view(request):
 
 # courses page
 def courses_view(request):
+    # جلب جميع التصنيفات
+    categories = Category.objects.all()
+    selected_category = request.GET.get('category')
+    sort = request.GET.get('sort', 'newest')
+
+    # فلترة الدورات حسب التصنيف إذا تم اختياره
     courses = Course.objects.all()
-    return render(request, 'core/courses.html', {'courses': courses})
+    if selected_category:
+        courses = courses.filter(category_id=selected_category)
+
+    # ترتيب الدورات حسب الخيار المختار
+    if sort == "popular":
+        courses = courses.order_by('-students__count')
+    elif sort == "rating":
+        courses = courses.order_by('-average_rating')
+    elif sort == "price_low":
+        courses = courses.order_by('price')
+    elif sort == "price_high":
+        courses = courses.order_by('-price')
+    else:  # newest
+        courses = courses.order_by('-created_at')
+
+    # دعم التصفح بالصفحات (pagination)
+    from django.core.paginator import Paginator
+    paginator = Paginator(courses, 12)
+    page_number = request.GET.get('page')
+    courses_page = paginator.get_page(page_number)
+
+    context = {
+        'courses': courses_page,
+        'categories': categories,
+        'selected_category': selected_category,
+        'sort': sort,
+    }
+    return render(request, 'core/courses.html', context)
 
 @login_required
 def update_profile(request):
@@ -167,11 +224,19 @@ def lesson_detail(request, course_id, lesson_id):
     # جلب روابط الموارد الإضافية الخاصة بالدرس الحالي فقط
     lesson_urls = AdditionalResoursesUrl.objects.filter(lesson=lesson)
     
+    lessons = Lesson.objects.filter(course_id=course_id).order_by('id')
+    lesson_list = list(lessons)
+    current_index = lesson_list.index(lesson)
+    prev_lesson = lesson_list[current_index - 1] if current_index > 0 else None
+    next_lesson = lesson_list[current_index + 1] if current_index < len(lesson_list) - 1 else None
+    
     context = {
         'course': course,
         'lesson': lesson,
         'lessons': lessons,
         'enrollment': enrollment,
+        'prev_lesson': prev_lesson,
+        'next_lesson': next_lesson,
         'additional_urls': {
         'lesson': lesson_urls,
         },
@@ -295,3 +360,12 @@ def mark_lesson_completed(request, course_id, lesson_id):
         messages.info(request, 'لقد أكملت هذا الدرس بالفعل.')
     
     return redirect('lesson_detail', course_id=course_id, lesson_id=lesson_id)
+
+def contact_view(request):
+    return render(request, 'core/contact.html')
+
+def privacy_policy(request):
+    return render(request, 'core/privacy_policy.html')
+
+def terms_of_use(request):
+    return render(request, 'core/terms_of_use.html')
