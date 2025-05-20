@@ -323,7 +323,6 @@
                         <option value="{% url 'contact' %}" {% if 'contact' in request.path %}selected{% endif %}>اتصل بنا</option>
                         {% if user.is_authenticated %}
                         <option value="{% url 'profile' %}" {% if 'profile' in request.path %}selected{% endif %}>الملف الشخصي</option>
-                        <option value="{% url 'logout' %}" {% if 'logout' in request.path %}selected{% endif %}>تسجيل الخروج</option>
                         {% endif %}
                     </select>
                     <!-- Tabs for desktop -->
@@ -378,6 +377,12 @@
                 <li><a href="{% url 'contact' %}" {% if 'contact' in request.path %}class="active"{% endif %}>اتصل بنا</a></li>
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'profile' %}" {% if 'profile' in request.path %}class="active"{% endif %}>الملف الشخصي</a></li>
+                <li>
+                    <form method="post" action="{% url 'logout' %}" class="logout-form" style="margin:0;padding:0;">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-button" style="background:none;border:none;width:100%;text-align:right;padding:0.75rem 1rem;color:#333;font-family:'Tajawal',sans-serif;font-size:1rem;cursor:pointer;">تسجيل الخروج</button>
+                    </form>
+                </li>
                 {% endif %}
             </ul>
         </nav>
