@@ -323,10 +323,8 @@
                         <option value="{% url 'contact' %}" {% if 'contact' in request.path %}selected{% endif %}>اتصل بنا</option>
                         {% if user.is_authenticated %}
                         <option value="{% url 'profile' %}" {% if 'profile' in request.path %}selected{% endif %}>الملف الشخصي</option>
-                        <form method="post" action="{% url 'logout' %}" class="logout-form">
-                                    {% csrf_token %}
-                                    <button type="submit" class="logout-button">تسجيل الخروج</button>
-                                </form>
+                         {% csrf_token %}
+                        <option metho="post" value="{% url 'logout' %}" {% if 'logout' in request.path %}selected{% endif %}> تسجيل الخروج</option>
                         {% endif %}
                     </select>
                     <!-- Tabs for desktop -->
